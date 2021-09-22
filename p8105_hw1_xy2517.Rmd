@@ -1,0 +1,111 @@
+---
+title: "p8105_hw1_xy2517"
+
+author: "Xuehan Yang Uni: xy2517"
+
+date: "2021/9/22"
+
+output: github_document
+---
+
+
+All the libraries needed in this project.
+
+```{r message=FALSE}
+library(tidyverse)
+library(palmerpenguins)
+```
+
+
+# Problem 1
+
+Create a dataframe comprised of numeric, logical, character, and factor variables.
+
+```{r create a dataframe}
+datatypes_df <-
+  tibble(
+    num_vec = rnorm(10,0,1), # numeric variable
+    logic_vec = num_vec > 0, # logical variable
+    char_vec = c("Stephen","Durant","James","Klay","CP3","Davis","Giannis","Joker","Harden","Irving"), # character variable
+    factor_vec = factor(c("S","S","A","A","B","A","S","A","S","A"), levels = c("B","A","S")) # factor variables and order them
+  )
+```
+
+Take the Mean of each variable of the dataframe.
+
+```{r calculate the means, results='hide', warning=FALSE}
+library(tidyverse)
+mean(pull(datatypes_df, 1)) # try the mean for numeric variable
+mean(pull(datatypes_df, 2)) # try the mean for logical variable
+mean(pull(datatypes_df, 3)) # try the mean for character variable
+mean(pull(datatypes_df, 4)) # try the mean for factor variable
+```
+
+From the results, I can see that only numeric and logical variables can be put in the mean() function. 
+
+Then convert logical, character and factor variables to numeric.
+
+```{r convert to numeric variable, results='hide',warning=FALSE}
+as.numeric(pull(datatypes_df,2))
+as.numeric(pull(datatypes_df,3))
+as.numeric(pull(datatypes_df,4))
+```
+
+Conclusions:
+
+Logical and factor variales can be converted to numeric with function as.numeric, however, character variables can't.
+
+* For logical variables, "TRUE" equals to 1 and "FALSE" equals to 0.
+
+* For character variables, they cannot be converted to numeric.
+
+* For factor variables, they can be converted to numeric according to the alphabetical order by default 
+unless you give them order at the beginning.
+
+
+# Problem 2
+
+After installing packages "palmerpenguins", load dataset "penguins".
+
+```{r load penguins dataset}
+data("penguins", package = "palmerpenguins")
+```
+
+Then, try to get some descriptive statistics of this dataset.
+
+## Description 1: Names/values of important variables
+
+```{r get names}
+names(penguins) 
+```
+
+```{r values of important variables}
+head(penguins,5)
+```
+
+As we can see, this dataset contains some main characteristics of penguins like species, body_mass_g and body shape indexes. There are 8 columns and 3 factors, 3int and 3 doubles types of data are included.
+
+```{r view discriptive statistics}
+summary(penguins)
+```
+
+There are three penguin species and three living islands. The average bill_length is 43.92mm, average bill_depth is 17.15mm, average flipper_length is 200.9mm and average body_mass is 4202g. 165 of them are female and 168 of them are male. 
+
+There are also some NA values in dataset. If we are going to do statistical inference, data manipulation should be done here.
+
+## Description 2: Size of the dataset
+
+```{r get row and col numbers}
+nrow(penguins)
+ncol(penguins)
+```
+
+There are 344 rows and 8 columns in this dataset.
+
+## Description 3: Relation between bill_length and flipper_length
+
+```{r warning=FALSE}
+ggplot(data = penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point() + labs(title = "Relation between bill_length and flipper_length")
+```
+
+

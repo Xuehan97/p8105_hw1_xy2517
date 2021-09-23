@@ -83,10 +83,10 @@ Drop the NA values.
 As we can see, this dataset contains some main characteristics of penguins which includes `r names(penguins)`. There are `r ncol(penguins)` columns and 3 factors, 3int and 3 doubles types of data are included.
 
 There are three penguin species and three living islands. 
-The average bill_length is `r round(mean(penguins$bill_length_mm),0)`mm, 
-average bill_depth is `r round(mean(penguins$bill_depth_mm),0)`mm, 
-average flipper_length is `r round(mean(penguins$flipper_length_mm),0)`mm,
-average body_mass is `r round(mean(penguins$body_mass_g),0)`g. 
+The average bill_length is `r round(mean(pull(penguins,bill_length_mm)),0)`mm, 
+average bill_depth is `r round(mean(pull(penguins,bill_depth_mm)),0)`mm, 
+average flipper_length is `r round(mean(pull(penguins,flipper_length_mm)),0)`mm,
+average body_mass is `r round(mean(pull(penguins,body_mass_g)),0)`g. 
 `r sum(penguins$sex=="female")` of them are female and `r sum(penguins$sex=="male")` of them are male. 
 
 ## Description 2: Size of the dataset
@@ -100,7 +100,7 @@ ggplot(data = penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = s
   ggtitle("Relation between bill_length and flipper_length") + 
   theme(plot.title = element_text(hjust = 0.5))
 
-ggsave("./plots.pdf", height = 7, width = 8)
+ggsave("./plots/bill_length_flipper_length.pdf", height = 7, width = 8)
 ```
 
 
